@@ -6,70 +6,50 @@
 //
 
 import SwiftUI
-import BottomBar_SwiftUI
-
-let itemsBar: [BottomBarItem] = [
-	BottomBarItem(icon: "books.vertical", title: "Library", color: .pink),
-	BottomBarItem(icon: "magnifyingglass", title: "Search books", color: .orange),
-	BottomBarItem(icon: "gear", title: "Settings", color: .blue)
-]
-
-struct MainView: View {
-	@Binding var selectedIndex: Int
-	
-	var body: some View {
-		
-		VStack {
-		if (selectedIndex == 0) {
-			LibraryHome(booksInLibrary: Array(repeating: Book.example, count: 15))
-				.transition(.asymmetric(insertion: AnyTransition.move(edge: .bottom), removal: AnyTransition.move(edge: .top)))
-		}
-		
-		if (selectedIndex == 1) {
-			VStack {
-			Spacer()
-			Text("Search page incoming")
-			Spacer()
-			}.transition(.asymmetric(insertion: AnyTransition.move(edge: .bottom), removal: AnyTransition.move(edge: .top)))
-		}
-		
-		
-			
-		if (selectedIndex == 2) {
-			VStack {
-			Spacer()
-			Text("Setting page incoming")
-			Spacer()
-			}.transition(.asymmetric(insertion: AnyTransition.move(edge: .bottom), removal: AnyTransition.move(edge: .top)))
-		}
-		
-		}.animation(.easeInOut, value: self.selectedIndex)
-	}
-}
 
 struct ContentView: View {
-
-	@State private var selectedIndex: Int = 0
 	
-    var body: some View {
-		NavigationView {
-			VStack {
-				MainView(selectedIndex: $selectedIndex)
-					.navigationBarHidden(true)
-					
+	@State private var selectedIndex: Int = 0
+	@Namespace private var tabSelection
+	@Environment(\.managedObjectContext) private var viewContext
 
-				Spacer()
-				BottomBar(selectedIndex: $selectedIndex, items: itemsBar)
-					
-			}
-		}
+	
+	var body: some View {
+		TabView (selection: $selectedIndex){
+			LibraryHome().environment(\.managedObjectContext, viewContext)
+				.tabItem {
+					Image(systemName: "books.vertical")
+					Text("Library")
+				}
+				.tag(0)
+			
+			Text("Search page incoming")
+				.tabItem {
+					Image(systemName: "magnifyingglass")
+					Text("Search books")
+				}
+				.tag(1)
+				
+			
+			Text("Setting page incoming")
+				.tabItem {
+					Image(systemName: "gear")
+					Text("Settings")
+				}
+				
+				.tag(2)
+				
+			
+		}.accentColor(.pink)
+
+			
 	}
 }
 
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+	static var previews: some View {
+		ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+	}
 }
 #endif

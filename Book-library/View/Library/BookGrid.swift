@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct BookGrid: View {
-	var booksInLibrary: [Book]
+	
+	@Environment(\.managedObjectContext) private var viewContext
+	@FetchRequest(entity: Book.entity(), sortDescriptors: [])
+		var booksInLibrary: FetchedResults<Book>
+	
 	var vGridLayout = [ GridItem(.adaptive(minimum: 150))]
 	
     var body: some View {
 		ScrollView {
 			LazyVGrid(columns: vGridLayout) {
-				ForEach(0..<14) {row in BookGridElement(book: booksInLibrary[row])}
+				ForEach(booksInLibrary, id: \.isbn10) {book in BookGridElement(book: book)}
 			}.padding(.all, 20)
 		}
     }
@@ -23,7 +27,7 @@ struct BookGrid: View {
 #if DEBUG
 struct BookGrid_Previews: PreviewProvider {
     static var previews: some View {
-		BookGrid(booksInLibrary: Array(repeating: Book.example, count: 15))
+		BookGrid().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 #endif

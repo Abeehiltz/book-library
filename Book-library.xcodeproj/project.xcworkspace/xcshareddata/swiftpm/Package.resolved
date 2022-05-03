@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "bottombar-swiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/smartvipere75/bottombar-swiftui",
-      "state" : {
-        "branch" : "master",
-        "revision" : "03f7ea8cbb71747a8633a0ec778697da6e9ef482"
-      }
-    },
-    {
       "identity" : "swiftui-cached-async-image",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/lorenzofiamingo/swiftui-cached-async-image",

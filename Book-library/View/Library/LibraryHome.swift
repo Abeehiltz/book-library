@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct LibraryHome: View {
-	var booksInLibrary: [Book]
     var body: some View {
-        BookGrid(booksInLibrary: booksInLibrary)
+        BookGrid()
     }
 }
 
 #if DEBUG
 struct LibraryHome_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryHome(booksInLibrary: Array(repeating: Book.example, count: 15))
+		LibraryHome().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 #endif
