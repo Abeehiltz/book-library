@@ -43,6 +43,7 @@ struct PersistenceController {
 			book.isbn10 = isbn10s[i]
 			book.desc = descriptions[i]
 			book.authors = authors[i]
+			book.review = "A very nice book"
 		}
 		
 		return controller

@@ -26,6 +26,7 @@ extension Book {
     @NSManaged public var language: String
     @NSManaged public var thumbnail: String
     @NSManaged private var status: String
+	@NSManaged public var review: String
 	
 	var bookStatus: BookStatus {
 		set {

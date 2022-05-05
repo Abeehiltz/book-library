@@ -8,12 +8,13 @@
         <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="publishedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="publisher" optional="YES" attributeType="String"/>
+        <attribute name="review" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <fetchRequest name="FetchAll" entity="Book"/>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="179"/>
+        <element name="Book" positionX="-63" positionY="-18" width="128" height="194"/>
     </elements>
 </model>
